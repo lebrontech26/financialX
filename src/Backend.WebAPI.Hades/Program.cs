@@ -15,19 +15,16 @@ builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 
 // =======================
-// CORS CONFIG
+// CORS CONFIG (DEV)
 // =======================
 const string FrontendCorsPolicy = "FrontendDev";
-
-var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
-    ?? new[] { "http://localhost:5173" };
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: FrontendCorsPolicy, policy =>
     {
         policy
-            .WithOrigins(allowedOrigins)
+            .WithOrigins("http://localhost:5173")
             .AllowAnyHeader()
             .AllowAnyMethod();
     });

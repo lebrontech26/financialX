@@ -38,6 +38,34 @@ public class HistorialScoringConfiguration : IEntityTypeConfiguration<HistorialS
             .IsRequired()
             .HasDefaultValue(false);
 
+        // ─── Features del BCRA (Owned Entity) ───
+        entity.OwnsOne(h => h.FeaturesBcra, fb =>
+        {
+            fb.Property(f => f.MaxSituacionActual)
+                .HasColumnName("MaxSituacionActual")
+                .HasDefaultValue(0);
+
+            fb.Property(f => f.CantidadEntidadesActual)
+                .HasColumnName("CantidadEntidadesActual")
+                .HasDefaultValue(0);
+
+            fb.Property(f => f.PeorSituacion24m)
+                .HasColumnName("PeorSituacion24m")
+                .HasDefaultValue(0);
+
+            fb.Property(f => f.MesesMora24m)
+                .HasColumnName("MesesMora24m")
+                .HasDefaultValue(0);
+
+            fb.Property(f => f.RecenciaMora)
+                .HasColumnName("RecenciaMora")
+                .HasDefaultValue(0);
+
+            fb.Property(f => f.ChequesEventos12m)
+                .HasColumnName("ChequesEventos12m")
+                .HasDefaultValue(0);
+        });
+
         // JSON snapshot del BCRA (puede ser muy largo)
         //entity.Property(h => h.BcraSnapshotRawJson)
         //   .HasColumnType("TEXT"); // SQLite: TEXT para strings largos
