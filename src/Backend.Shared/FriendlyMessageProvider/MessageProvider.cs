@@ -1,0 +1,13 @@
+namespace Backend.Shared.FriendlyMessageProvider
+{
+    public static class MessageProvider
+    {
+        public static string Get<TEnum>(Dictionary<TEnum, string> messages, TEnum key) where TEnum : Enum
+        {
+            if (messages.TryGetValue(key, out var message))
+                return message;
+
+            return "Error desconocido";
+        }
+    }
+}
