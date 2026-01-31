@@ -11,6 +11,7 @@ RUN dotnet publish "Backend.WebAPI.Hades/Backend.WebAPI.Hades.csproj" -c Release
 FROM base AS final
 WORKDIR /app
 COPY --from=build /app/publish .
-RUN mkdir -p /app/data
+COPY src/Backend.Data/Db/hades.db /app/data/hades.db
 ENV ASPNETCORE_URLS=http://+:8080
+ENV ConnectionStrings__Sqlite="Data Source=/app/data/hades.db"
 ENTRYPOINT ["dotnet", "Backend.WebAPI.Hades.dll"]

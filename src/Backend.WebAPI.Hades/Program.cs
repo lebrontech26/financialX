@@ -17,18 +17,23 @@ builder.Services.AddControllers();
 // =======================
 // CORS CONFIG (DEV)
 // =======================
+
 const string FrontendCorsPolicy = "FrontendDev";
+
+var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
+    ?? new[] { "http://localhost:5173" };
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: FrontendCorsPolicy, policy =>
     {
         policy
-            .WithOrigins("http://localhost:5173")
+            .WithOrigins(allowedOrigins)
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
 });
+
 
 //Entity Framework - Db
 var connectionString = builder.Configuration.GetConnectionString("Sqlite");
